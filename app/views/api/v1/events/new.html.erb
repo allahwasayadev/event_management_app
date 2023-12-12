@@ -1,0 +1,3 @@
+<%= turbo_frame_tag @event do %>
+  <%= render(FormModal.new(event: @event, url: api_v1_events_path, method: :post)) %>
+<% end %>

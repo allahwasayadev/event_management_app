@@ -1,0 +1,11 @@
+<dialog data-modal-target="displayModal" class="p-0 backdrop:bg-gray-400 backdrop:bg-opacity-50 open:animate-fade-in open:backdrop:animate-fade-in rounded-lg">
+  <div class="relative bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700 min-w-[300px] max-w-3xl rounded-lg">
+    <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-action="modal#close_modal">
+      <%= raw(File.read('app/assets/images/close_modal.svg')) %>
+      <span class="sr-only">Close modal</span>
+    </button>
+    <div class="p-6 lg:px-8 text-white">
+      <%= render 'api/v1/events/form', event: event, url: url, method: method %>
+    </div>
+  </div>
+</dialog>
