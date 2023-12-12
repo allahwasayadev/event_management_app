@@ -1,0 +1,2 @@
+<%= turbo_stream.replace @event, partial: 'api/v1/events/event', locals: { event: @event } %>
+<%= turbo_stream.update Event.new, '' %>

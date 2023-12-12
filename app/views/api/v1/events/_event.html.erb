@@ -1,0 +1,45 @@
+<%= turbo_frame_tag event do %>
+  <div data-controller='modal' class="w-[334px] p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+
+    <div data-controller='modal' class='flex flex-row justify-between'>
+      <%= button_tag type: 'button', data: { action: 'modal#open_modal' } do %>
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><%= event.name %></h5>
+      <% end %>
+
+      <%= render(EventModal.new(event: event, current_user: current_user)) %>
+
+    </div>
+
+
+    <p class="flex flex-row justify-start gap-2 py-2 font-normal text-gray-700 dark:text-gray-400">
+      <%= raw(File.read('app/assets/images/calender.svg')) %>
+      <%= event.date.strftime("%d-%b-%Y") %>
+    </p>
+
+    <p class="flex flex-row justify-start gap-2 py-2 font-normal text-gray-700 dark:text-gray-400">
+      <%= raw(File.read('app/assets/images/location.svg')) %>
+      <%= event.location %>
+    </p>
+
+    <p class="flex flex-row justify-start gap-2 py-2 font-normal text-gray-700 dark:text-gray-400">
+      <%= raw(File.read('app/assets/images/user.svg')) %>
+      <%= event.organizer.name %>
+    </p>
+
+    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 truncate"><%= event.description %></p>
+
+    <% if is_user_event(event, current_user)%>
+      <div class='flex flex-row justify-start py-2'>
+        <%= link_to edit_api_v1_event_path(event), class: 'btn-success', data: { action: 'modal#open_modal' } do %>
+          <%= raw(File.read('app/assets/images/edit.svg')) %>
+        <% end %>
+        <%= button_to api_v1_event_path(event), method: :delete, class: 'btn-danger' do %>
+        <%= raw(File.read('app/assets/images/delete.svg')) %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%= render(FormModal.new(event: event, url: api_v1_event_path(event.id), method: :patch)) %>
+  </div>
+
+<% end %>

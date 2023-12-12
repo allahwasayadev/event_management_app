@@ -1,0 +1,20 @@
+<%= turbo_stream.replace "event_#{@event.id}_modal" do %>
+  <turbo-frame id="<%= dom_id(@event) %>_modal">
+    <div class='mb-4'>
+      <% @event.joiners&.limit(5).each do |joiner| %>
+        <%= user_avatar_with_initials(joiner.name, classes: 'rounded-full') %>
+      <% end %>
+      <% if @event.joiners.count > 5 %>
+        <div class='flex justify-center items-center text-grey'>
+          <p> +<%= (@event.joiners.count - 5) %></p>
+        </div>
+      <% end %>
+    </div>
+  </turbo-frame>
+<% end %>
+
+<%= turbo_stream.replace "event_#{@event.id}_modal_button" do %>
+  <turbo-frame id="<%= dom_id(@event) %>_modal_button">
+    <%= button_to 'Join Event', join_api_v1_event_path(@event), class: 'btn-success' %>
+  </turbo-frame>
+<% end %>
