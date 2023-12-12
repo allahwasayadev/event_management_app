@@ -1,0 +1,40 @@
+<%= form_with model: event, url: url, method: method do |form| %>
+  <% if event.errors.any? %>
+    <% event.errors.full_messages.each do |message|%>
+      <h3><%= message %> </h3>
+    <%end%>
+  <%end%>
+
+  <div class="flex flex-col gap-y-3 w-[700px]">
+    <div>
+      <%= form.label :name, class:'block mb-2 text-sm font-medium text-gray-900 dark:text-white' %>
+      <%= form.text_field :name, class: 'mr-2 input-field', required: true, autofocus: true %>
+    </div>
+
+    <div class='flex flex-row justify-evenly'>
+      <div class="flex flex-col justify-start py-2 font-normal text-gray-700 dark:text-gray-400">
+        <%= form.label :date, class:'block mb-2 text-sm font-medium text-gray-900 dark:text-white' %>
+        <%= form.date_field :date, class: 'w-[300px] datepicker-autohide date-selector', required: true %>
+      </div>
+
+      <div class="flex flex-col justify-start py-2 font-normal text-gray-700 dark:text-gray-400">
+        <%= form.label :location, class:'block mb-2 text-sm font-medium text-gray-900 dark:text-white' %>
+        <%= form.text_field :location, class: 'w-[300px] input-field', required: true %>
+      </div>
+    </div>
+
+    <div>
+      <%= form.label :description, class:'block mb-2 text-sm font-medium text-gray-900 dark:text-white' %>
+      <%= form.text_area :description, class: 'mr-2 input-field', required: true %>
+    </div>
+
+    <div class='flex flex-row justify-end py-2'>
+      <%= button_tag class: 'btn-primary' do %>
+        <%= raw(File.read('app/assets/images/submit.svg')) %>
+      <% end %>
+      <%= link_to root_path, class: 'btn-danger' do %>
+        <%= raw(File.read('app/assets/images/cancel.svg')) %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

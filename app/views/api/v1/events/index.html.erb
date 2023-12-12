@@ -1,0 +1,20 @@
+<div class='container'>
+  <div class='flex flex-row justify-between mb-10'>
+    <h1 class='text-3xl font-bold tracking-tight text-gray-900 dark:text-white'> Events </h1>
+    <div data-controller='modal' class='flex flex-row justify-between'>
+      <%= link_to new_api_v1_event_path, class: 'btn-success', data: { action: 'modal#open_modal' } do %>
+        <div class='flex flex-row items-center pr-2'>
+          <%= raw(File.read('app/assets/images/new.svg')) %>
+          <p>Create Event</p>
+        </div>
+      <% end %>
+      <%= render(FormModal.new(event: Event.new, url: api_v1_events_path, method: :post)) %>
+    </div>
+  </div>
+
+  <div class='flex flex-wrap gap-5 justify-start'>
+    <%= turbo_frame_tag 'events', class: 'flex flex-wrap gap-5 justify-start' do %>
+      <%= render @events %>
+    <% end %>
+  </div>
+</div>
